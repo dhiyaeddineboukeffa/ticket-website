@@ -10,6 +10,7 @@ import {
   MdCreditCard,
   MdGroups2,
 } from "react-icons/md";
+import GradientAreaChart from "@/components/ui/demo";
 
 interface PassengerLog {
   _id?: string;
@@ -228,6 +229,11 @@ function Dashboard() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      {/* Monthly Ridership & Traffic Area Chart */}
+      <section>
+        <GradientAreaChart />
       </section>
 
       {/* System Overview Cards */}

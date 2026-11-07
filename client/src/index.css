@@ -5,6 +5,32 @@
 :root {
   background-color: #dff0f7;
   overflow-y: scroll;
+
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+
+  --chart-1: #22d3ee;
+  --chart-2: #818cf8;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #f472b6;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -14,7 +40,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .loader {
-  @apply animate-spin border-[4px] border-white/20  border-t-white/90  rounded-full;
+  @apply animate-spin border-[4px] border-white/20 border-t-white/90 rounded-full;
 }
 
 .button {
@@ -22,5 +48,5 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card {
-  @apply border border-gray-300 bg-[#F7FBFD] shadow-xl rounded-lg p-6  py-5;
+  @apply border border-gray-300 bg-[#F7FBFD] shadow-xl rounded-lg p-6 py-5;
 }
