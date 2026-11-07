@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #dff0f7;
+  overflow-y: scroll;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.loader {
+  @apply animate-spin border-[4px] border-white/20  border-t-white/90  rounded-full;
+}
+
+.button {
+  @apply disabled:opacity-60 disabled:pointer-events-none active:translate-y-px duration-200;
+}
+
+.card {
+  @apply border border-gray-300 bg-[#F7FBFD] shadow-xl rounded-lg p-6  py-5;
+}
