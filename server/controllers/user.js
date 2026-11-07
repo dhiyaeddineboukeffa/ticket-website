@@ -35,7 +35,8 @@ export const Signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
+    const password = req.body.password;
     const user = await User.findOne({ email }).select("email");
     if (!user) return res.status(403).json({ error: "Email Not Found" });
     const account = await User.findOne({ email, password }).select(

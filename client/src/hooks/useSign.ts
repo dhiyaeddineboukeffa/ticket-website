@@ -23,21 +23,24 @@ export const useLogin = () => {
   } = useSignSlice();
 
   const login = async () => {
+    const cleanEmail = email?.trim().toLowerCase();
+    const cleanPassword = password?.trim();
+
     if (
-      !email ||
-      !password ||
-      !/^(?=.*\d).{6,}$/.test(password) ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      !cleanEmail ||
+      !cleanPassword ||
+      !/^(?=.*\d).{6,}$/.test(cleanPassword) ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)
     ) {
       seterr({
-        password: !password
+        password: !cleanPassword
           ? "Please fill the input with your password"
-          : /^(?=.*\d).{6,}$/.test(password)
+          : /^(?=.*\d).{6,}$/.test(cleanPassword)
           ? ""
           : "Please Enter Valid Password",
-        email: !email
+        email: !cleanEmail
           ? "Please fill the input with your email"
-          : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+          : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)
           ? ""
           : "Please Enter Valid Email",
         err: true,
@@ -48,7 +51,7 @@ export const useLogin = () => {
     setloading(true);
 
     try {
-      const resp = await axios.post("/api/auth/", { email, password });
+      const resp = await axios.post("/api/auth/", { email: cleanEmail, password: cleanPassword });
       seterr({ email: "", password: "", err: true });
       setAuth(resp.data._id);
       if (resp.data.isAdmin || resp.data.role === "admin") {
