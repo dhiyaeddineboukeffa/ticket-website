@@ -26,7 +26,7 @@ function Home() {
         <aside className="flex gap-2 items-center opacity-80 ">
           <MdWifi className="text-green-600 text-lg" />{" "}
           <div className="w-px h-[60%] bg-textPri" />{" "}
-          <p className="line-clamp-2 break-all">Last synced: 5min ago</p>
+          <p className="line-clamp-2 break-all">MongoDB Cloud: Synced</p>
         </aside>
       </header>
 

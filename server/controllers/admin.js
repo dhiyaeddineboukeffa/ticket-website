@@ -1,5 +1,7 @@
 import User from "../models/user.module.js";
 import Transaction from "../models/transaction.module.js";
+import Passengers from "../models/passengers.module.js";
+import mongoose from "mongoose";
 
 // GET ALL USERS
 export const getAdminUsers = async (req, res) => {
@@ -393,6 +395,79 @@ export const seedSampleData = async (req, res) => {
       message: "Sample data seeded successfully!",
       usersCount: createdUsers.length,
       transactionsSeeded: seededTxCount,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// GET ADMIN SYSTEM OVERVIEW (100% REAL DATABASE METRICS)
+export const getAdminOverview = async (req, res) => {
+  try {
+    const totalUsers = await User.countDocuments();
+    const clientCount = await User.countDocuments({
+      role: { $in: ["normal", "client"] },
+      isAdmin: false,
+    });
+    const workerCount = await User.countDocuments({ role: "worker" });
+    const adminCount = await User.countDocuments({ isAdmin: true });
+
+    const totalTransactions = await Transaction.countDocuments();
+    const totalPassengerRecords = await Passengers.countDocuments();
+
+    // Aggregations for total credit added and ticket spent
+    const creditAgg = await Transaction.aggregate([
+      { $match: { balance: { $gt: 0 } } },
+      { $group: { _id: null, total: { $sum: "$balance" } } },
+    ]);
+    const totalCreditAdded = creditAgg[0]?.total || 0;
+
+    const spentAgg = await Transaction.aggregate([
+      { $match: { balance: { $lt: 0 } } },
+      { $group: { _id: null, total: { $sum: { $abs: "$balance" } } } },
+    ]);
+    const totalTicketSpent = spentAgg[0]?.total || 0;
+
+    const walletAgg = await User.aggregate([
+      { $group: { _id: null, total: { $sum: "$balance" } } },
+    ]);
+    const totalWalletBalance = walletAgg[0]?.total || 0;
+
+    // Real ping to MongoDB Atlas
+    let latencyMs = 0;
+    try {
+      const t0 = Date.now();
+      await mongoose.connection.db.admin().ping();
+      latencyMs = Date.now() - t0;
+    } catch {
+      latencyMs = -1;
+    }
+
+    res.status(200).json({
+      users: {
+        total: totalUsers,
+        clients: clientCount,
+        workers: workerCount,
+        admins: adminCount,
+      },
+      transactions: {
+        total: totalTransactions,
+        creditAdded: totalCreditAdded,
+        ticketSpent: totalTicketSpent,
+        netRevenue: totalCreditAdded - totalTicketSpent,
+      },
+      wallets: {
+        totalBalance: totalWalletBalance,
+      },
+      passengers: {
+        totalRecords: totalPassengerRecords,
+      },
+      database: {
+        status: mongoose.connection.readyState === 1 ? "Online" : "Connecting",
+        cluster: "MongoDB Atlas",
+        name: mongoose.connection.name || "BABI",
+        latencyMs: latencyMs >= 0 ? latencyMs : 0,
+      },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

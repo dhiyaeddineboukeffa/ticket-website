@@ -29,6 +29,33 @@ interface PassengerStats {
   currentInFrame: number;
 }
 
+interface AdminOverview {
+  users: {
+    total: number;
+    clients: number;
+    workers: number;
+    admins: number;
+  };
+  transactions: {
+    total: number;
+    creditAdded: number;
+    ticketSpent: number;
+    netRevenue: number;
+  };
+  wallets: {
+    totalBalance: number;
+  };
+  passengers: {
+    totalRecords: number;
+  };
+  database: {
+    status: string;
+    cluster: string;
+    name: string;
+    latencyMs: number;
+  };
+}
+
 function Dashboard() {
   const [stats, setStats] = useState<PassengerStats>({
     latest: { createdAt: new Date().toISOString(), in: 0, out: 0, inFrame: 0 },
@@ -38,16 +65,21 @@ function Dashboard() {
     totalOut: 0,
     currentInFrame: 0,
   });
+  const [overview, setOverview] = useState<AdminOverview | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastSyncTime, setLastSyncTime] = useState<Date | null>(null);
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get<PassengerStats>("/api/transaction/Passenger/stats?limit=30");
-      setStats(res.data);
+      const [passengerRes, overviewRes] = await Promise.all([
+        axios.get<PassengerStats>("/api/transaction/Passenger/stats?limit=30"),
+        axios.get<AdminOverview>("/api/admin/overview").catch(() => null),
+      ]);
+      if (passengerRes?.data) setStats(passengerRes.data);
+      if (overviewRes?.data) setOverview(overviewRes.data);
       setLastSyncTime(new Date());
     } catch (err) {
-      console.error("Error fetching passenger stats:", err);
+      console.error("Error fetching dashboard data:", err);
     } finally {
       setLoading(false);
     }
@@ -240,25 +272,33 @@ function Dashboard() {
         />
       </section>
 
-      {/* System Overview Cards */}
+      {/* System Overview Cards (100% Real Database Metrics) */}
       <section className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {[
           {
-            title: "Total Users",
-            count: "150",
-            description: "Clients, Workers, and Admins",
+            title: "Total Registered Users",
+            count: overview ? `${overview.users.total}` : "Loading...",
+            description: overview
+              ? `${overview.users.clients} Clients · ${overview.users.workers} Workers · ${overview.users.admins} Admins`
+              : "Fetching registered users from MongoDB",
             icon: <MdGroups2 />,
           },
           {
             title: "Total Credit Added",
-            count: "7,500 DZD",
-            description: "Total transaction balance added",
+            count: overview
+              ? `${overview.transactions.creditAdded.toLocaleString()} DZD`
+              : "Loading...",
+            description: overview
+              ? `${overview.transactions.total} Transactions recorded in Atlas`
+              : "Calculating transaction totals",
             icon: <MdCreditCard />,
           },
           {
             title: "Database Health",
-            count: "Online",
-            description: "Connected to MongoDB Atlas",
+            count: overview ? overview.database.status : "Connecting...",
+            description: overview
+              ? `${overview.database.cluster} (${overview.database.name}) · ${overview.database.latencyMs}ms latency`
+              : "Connected to MongoDB Atlas",
             icon: <MdTimeline />,
           },
         ].map((card, idx) => (
