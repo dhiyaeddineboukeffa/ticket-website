@@ -141,8 +141,9 @@ export const getAllPassengers = async (req, res) => {
 
 export const getPassengerStats = async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit) || 30;
     const latest = await Passenger.findOne().sort({ createdAt: -1 });
-    const recent = await Passenger.find().sort({ createdAt: -1 }).limit(20);
+    const recent = await Passenger.find().sort({ createdAt: -1 }).limit(limit);
     const totalRecords = await Passenger.countDocuments();
 
     const maxInDoc = await Passenger.findOne().sort({ in: -1 }).select("in");

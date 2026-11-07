@@ -43,7 +43,7 @@ function Dashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get<PassengerStats>("/api/transaction/Passenger/stats");
+      const res = await axios.get<PassengerStats>("/api/transaction/Passenger/stats?limit=30");
       setStats(res.data);
       setLastSyncTime(new Date());
     } catch (err) {
@@ -231,9 +231,13 @@ function Dashboard() {
         </div>
       </section>
 
-      {/* Monthly Ridership & Traffic Area Chart */}
+      {/* Real-time Passenger Flow & Occupancy Area Chart */}
       <section>
-        <GradientAreaChart />
+        <GradientAreaChart
+          logs={stats.recent}
+          totalRecords={stats.totalRecords}
+          isStreamActive={isStreamActive}
+        />
       </section>
 
       {/* System Overview Cards */}
