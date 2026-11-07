@@ -51,7 +51,13 @@ export const useLogin = () => {
       const resp = await axios.post("/api/auth/", { email, password });
       seterr({ email: "", password: "", err: true });
       setAuth(resp.data._id);
-      navigate("/");
+      if (resp.data.isAdmin || resp.data.role === "admin") {
+        navigate("/admin");
+      } else if (resp.data.role === "worker") {
+        navigate("/worker");
+      } else {
+        navigate("/");
+      }
     } catch (error: any) {
       if (error.response.status === 402 || error.response.status === 403)
         seterr({
@@ -98,7 +104,13 @@ export const useSignup = () => {
         err: true,
       });
       setAuth(resp.data._id);
-      navigate("/");
+      if (resp.data.isAdmin || resp.data.role === "admin") {
+        navigate("/admin");
+      } else if (resp.data.role === "worker") {
+        navigate("/worker");
+      } else {
+        navigate("/");
+      }
     } catch (error: any) {
       if (error.response.status === 402)
         setErr({ ...err, email: "Email Already Exist" });
