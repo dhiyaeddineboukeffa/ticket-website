@@ -31,7 +31,9 @@ export const connectDB = async () => {
     return;
   }
   try {
-    await mongoose.connect(process.env.MONGODB);
+    await mongoose.connect(process.env.MONGODB, {
+      serverSelectionTimeoutMS: 5000,
+    });
     isConnected = true;
     console.log("MongoDB Connected");
   } catch (error) {
