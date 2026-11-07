@@ -12,6 +12,9 @@ import AddSales, { AddBalance, Scanner } from "./pages/Worker/AddSales";
 import { useEffect } from "react";
 import AdminRoutes from "./components/routes/Admin.route";
 import Dashboard from "./pages/Admin/Dashboard";
+import UserManagement from "./pages/Admin/UserManagement";
+import ClientCredits from "./pages/Admin/ClientCredits";
+import AllTransactions from "./pages/Admin/AllTransactions";
 import Controle, {
   ControleClientInfo,
   ControleScanner,
@@ -56,6 +59,9 @@ function App() {
         </Route>
         <Route path="admin" element={<AdminRoutes />}>
           <Route index element={<Dashboard />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="credits" element={<ClientCredits />} />
+          <Route path="transactions" element={<AllTransactions />} />
           <Route path="*" element={<div></div>} />
         </Route>
       </Routes>

@@ -17,10 +17,10 @@ function AdminSidebar() {
       <aside className="mt-4 space-y-1 ">
         {[
           { icon: <MdDashboard />, text: "Dashboard", link: "/admin" },
-          { icon: <MdGroup />, text: "User Managment", link: "/admin/users" },
+          { icon: <MdGroup />, text: "User Management", link: "/admin/users" },
           {
             icon: <MdCreditCard />,
-            text: "Clinet Credits",
+            text: "Client Credits",
             link: "/admin/credits",
           },
           {

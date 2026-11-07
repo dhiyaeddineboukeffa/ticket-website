@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import userRoutes from "./routes/user.routes.js";
 import transactionRoutes from "./routes/transaction.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ app.use(async (req, res, next) => {
 
 app.use("/api/auth", userRoutes);
 app.use("/api/transaction", transactionRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Static file serving for local standalone runs
 app.use(express.static(path.join(__dirname, "/client/dist")));
