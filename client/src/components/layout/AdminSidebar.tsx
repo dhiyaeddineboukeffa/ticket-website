@@ -6,6 +6,7 @@ import {
   MdGroup,
   MdClose,
   MdArrowBack,
+  MdSensors,
 } from "react-icons/md";
 import { NavLink, Link } from "react-router-dom";
 
@@ -47,6 +48,11 @@ function AdminSidebar({ onClose }: AdminSidebarProps) {
               text: "All Transactions",
               link: "/admin/transactions",
             },
+            {
+              icon: <MdSensors className="text-lg text-emerald-400" />,
+              text: "Worker Station",
+              link: "/worker",
+            },
           ].map((nav) => (
             <NavLink
               key={nav.link}
@@ -68,11 +74,18 @@ function AdminSidebar({ onClose }: AdminSidebarProps) {
         </aside>
       </div>
 
-      <div className="pt-4 border-t border-white/10">
+      <div className="pt-4 border-t border-white/10 space-y-1">
+        <Link
+          to="/worker"
+          onClick={onClose}
+          className="flex items-center gap-2 py-2 px-3 rounded-lg text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 text-xs font-semibold transition"
+        >
+          <MdSensors className="text-base" /> Switch to Worker Station
+        </Link>
         <Link
           to="/"
           onClick={onClose}
-          className="flex items-center gap-2 py-2.5 px-3 rounded-lg text-white/60 hover:text-white hover:bg-white/5 text-xs transition"
+          className="flex items-center gap-2 py-2 px-3 rounded-lg text-white/60 hover:text-white hover:bg-white/5 text-xs transition"
         >
           <MdArrowBack /> Return to Passenger Portal
         </Link>

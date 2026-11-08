@@ -1,5 +1,5 @@
 import { BsCreditCard } from "react-icons/bs";
-import { MdLogout, MdShield, MdMenu } from "react-icons/md";
+import { MdLogout, MdShield, MdMenu, MdSensors } from "react-icons/md";
 import { profileSlice } from "../../store/signSlice";
 import { useLogout } from "../../hooks/useSign";
 import { useNavigate, Link } from "react-router-dom";
@@ -50,7 +50,17 @@ function AdminNavbar({ onToggleMenu }: AdminNavbarProps) {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Worker Station Direct Access */}
+          <Link
+            to="/worker"
+            title="Switch to Worker Station"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition active:scale-95"
+          >
+            <MdSensors className="text-base text-emerald-400" />
+            <span className="hidden sm:inline">Worker Station</span>
+          </Link>
+
           {profile._id ? (
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="hidden lg:flex flex-col text-right">
