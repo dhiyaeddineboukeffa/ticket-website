@@ -100,7 +100,7 @@ function StartScan({ handler }: any) {
               )}
               <MdQrCodeScanner className="text-5xl text-center mx-auto relative z-50" />
               <h1 className="text-textPri opacity-60 mt-3 text-center">
-                Scanner is Off. Click Start To Active.
+                Scanner is Off. Click Start To Activate.
               </h1>
             </div>
           )}

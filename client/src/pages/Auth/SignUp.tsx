@@ -66,7 +66,7 @@ function SignUp() {
         />
         <Input
           type="password"
-          title="ConfirmPassword "
+          title="Confirm Password"
           name="confirmPassword"
           err={err.confirmPassword}
           value={signupInfo.confirmPassword}
@@ -83,7 +83,7 @@ function SignUp() {
             <div className="loader w-6 h-6 !border-2" />
           ) : (
             <>
-              Register <MdPersonAddAlt className="lg" />
+              Register <MdPersonAddAlt className="text-lg" />
             </>
           )}
         </button>

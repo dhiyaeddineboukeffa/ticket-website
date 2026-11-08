@@ -29,7 +29,7 @@ function AdminSidebar() {
             link: "/admin/transactions",
           },
         ].map((nav) => (
-          <Nav {...nav} />
+          <Nav key={nav.link} {...nav} />
         ))}
       </aside>
     </nav>

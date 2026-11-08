@@ -10,23 +10,23 @@ function Worker() {
       <section className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
         {[
           {
-            title: "Controle Client",
+            title: "Control Client",
             icon: <LuScanSearch />,
-            text: "Scan a clien't QR code to view their information and last ticket status ",
-            button: "Go To Controle",
+            text: "Scan a client's QR code to view their information and last ticket status",
+            button: "Go To Control",
             to: "contole",
           },
           {
             title: "Redeem Ticket",
             icon: <MdQrCode2 />,
-            text: "Scan a clien't QR code to redeem a ticket from thei credit balance  ",
+            text: "Scan a client's QR code to redeem a ticket from their credit balance",
             button: "Go To Redeem",
             to: "redeem",
           },
           {
             title: "Add Sales / Credit",
             icon: <LuBadgeDollarSign />,
-            text: "Scan a clien't QR code to add credit to their account or correct a previous transaction ",
+            text: "Scan a client's QR code to add credit to their account or correct a previous transaction",
             button: "Go To Add Sales",
             to: "addsales",
           },

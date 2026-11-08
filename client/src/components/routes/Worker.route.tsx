@@ -8,8 +8,15 @@ function WorkerRoute() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (profile.role && profile.role !== "worker") navigate("/");
-  }, [profile.role]);
+    if (
+      profile.role &&
+      profile.role !== "worker" &&
+      profile.role !== "admin" &&
+      !profile.isAdmin
+    ) {
+      navigate("/");
+    }
+  }, [profile.role, profile.isAdmin]);
 
   if (!profile.role)
     return (

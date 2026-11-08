@@ -8,6 +8,7 @@ type TUser = {
 };
 
 interface TTransaction {
+  _id?: string;
   balance: number;
   worker: TUser;
   client: TUser;

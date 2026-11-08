@@ -4,6 +4,7 @@ import {
   MdOutlineFileDownload,
   MdQrCode,
   MdWifi,
+  MdVisibility,
 } from "react-icons/md";
 import { BsCreditCard } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -11,97 +12,107 @@ import { profileSlice } from "../../store/signSlice";
 import QRCode from "react-qr-code";
 import { useDownloadPng } from "../../utils/hooks";
 import { useState } from "react";
+import { useGetProfile } from "../../hooks/useSign";
 
 function Home() {
   const { profile } = profileSlice();
   const [blur, setBlur] = useState<boolean>(true);
   const { onClick, ref } = useDownloadPng(`Qr ${profile._id}`);
+  const { Get: refreshProfile, loading: refreshing } = useGetProfile(false);
 
   return (
-    <main className="h-full max-w-6xl w-full mx-auto py-6 px-4 ">
-      <header className="flex justify-between gap-4 h-fit mb-6">
-        <h1 className="md:text-3xl text-xl font-bold   ">
-          Welcom {profile.fullName}
+    <main className="h-full max-w-6xl w-full mx-auto py-6 px-4">
+      <header className="flex justify-between gap-4 h-fit mb-6 items-center">
+        <h1 className="md:text-3xl text-xl font-bold">
+          Welcome, {profile.fullName || "Valued Passenger"}
         </h1>
-        <aside className="flex gap-2 items-center opacity-80 ">
-          <MdWifi className="text-green-600 text-lg" />{" "}
-          <div className="w-px h-[60%] bg-textPri" />{" "}
+        <aside className="flex gap-2 items-center opacity-80 text-xs sm:text-sm">
+          <MdWifi className="text-green-600 text-lg" />
+          <div className="w-px h-4 bg-textPri" />
           <p className="line-clamp-2 break-all">MongoDB Cloud: Synced</p>
         </aside>
       </header>
 
-      <section
-        className="grid md:grid-cols-2 gap-6 
-      "
-      >
-        <article className="w-full card    grid grid-rows-[auto_auto_1fr]  space-y-2">
-          <aside className="flex justify-between ">
-            <h1>Current Credit</h1>
-            <BsCreditCard className="text-sec text-xl" />
+      <section className="grid md:grid-cols-2 gap-6">
+        {/* Credit Card */}
+        <article className="w-full card grid grid-rows-[auto_auto_1fr] space-y-2">
+          <aside className="flex justify-between items-center">
+            <h1 className="font-semibold text-textPri/80">Current Credit</h1>
+            <BsCreditCard className="text-sec text-2xl" />
           </aside>
 
-          <h1 className="md:text-4xl text-2xl font-bold">
-            {profile.balance} DZD
+          <h1 className="md:text-4xl text-2xl font-bold text-sec">
+            {(profile.balance || 0).toLocaleString()} DZD
           </h1>
 
           <p className="text-textPri opacity-60 text-sm font-medium self-end">
-            Your Available Balance for tram ticket
+            Available balance for tram tickets (40 DZD per ride)
           </p>
         </article>
 
-        <article className="w-full card space-y-2 ">
-          <aside className="flex justify-between font-medium">
-            <h1>Actions</h1>
-            <MdQrCode className="text-sec text-xl" />
+        {/* Quick Actions */}
+        <article className="w-full card space-y-3">
+          <aside className="flex justify-between font-medium items-center">
+            <h1 className="font-semibold text-textPri/80">Quick Actions</h1>
+            <MdQrCode className="text-sec text-2xl" />
           </aside>
 
           <Link
             to="/TransactionHistory"
-            className="button w-full py-2 rounded-md bg-pri  text-opacity-60 flex justify-center items-center gap-4"
+            className="button w-full py-2.5 rounded-md bg-pri hover:bg-pri/80 text-textPri font-medium flex justify-center items-center gap-2 transition"
           >
-            <MdHistory className="text-xl" />{" "}
-            <p className="line-clamp-1">View Transaction History</p>
+            <MdHistory className="text-xl" />
+            <span>View Transaction History</span>
           </Link>
-          <button className="button w-full py-2 !mt-3 rounded-md bg-sec text-white   flex justify-center items-center gap-4">
-            <MdAutorenew className="text-xl" />{" "}
-            <p className="line-clamp-1">View Transaction History</p>
-          </button>
 
-          {!localStorage.getItem("auth") && (
-            <h1 className="">Login to sync real data</h1>
-          )}
+          <button
+            onClick={() => refreshProfile()}
+            disabled={refreshing}
+            className="button w-full py-2.5 rounded-md bg-sec hover:bg-sec/90 text-white font-medium flex justify-center items-center gap-2 transition"
+          >
+            <MdAutorenew className={`text-xl ${refreshing ? "animate-spin" : ""}`} />
+            <span>{refreshing ? "Refreshing Balance..." : "Refresh Balance & Sync"}</span>
+          </button>
         </article>
       </section>
 
-      <section className="p-5 card max-w-[420px] w-11/12 relative z-10 mt-6 text-center mx-auto">
-        <h1 className="font-bold md:text-2xl text-xl mb-3">
+      {/* Ticket QR Code Card */}
+      <section className="p-6 card max-w-[420px] w-11/12 relative z-10 mt-6 text-center mx-auto shadow-md">
+        <h1 className="font-bold md:text-2xl text-xl mb-1">
           Your Ticket QR Code
         </h1>
-        <h2 className="opacity-70 mb-2">Present This QR Code for scanning</h2>
+        <h2 className="opacity-70 text-xs sm:text-sm mb-4">
+          Present this QR code to the station scanner or inspector
+        </h2>
 
         <div
           onClick={() => setBlur(!blur)}
           ref={ref}
-          className="p-4 cursor-pointer relative grid "
+          className="p-4 cursor-pointer relative grid rounded-lg bg-gray-50 border border-gray-200"
+          title="Click to toggle privacy blur"
         >
-          <QRCode className="mx-auto w-10/12 max-w-64" value={profile._id} />
-          <span
-            className={`absolute w-10/12 left-1/2 -translate-x-1/2 h-full duration-200 backdrop-blur-[5px] bg-white/5 ${
-              blur ? " opacity-100" : "opacity-0"
-            }`}
-          />
+          <QRCode className="mx-auto w-10/12 max-w-64" value={profile._id || "tram-user"} />
+          {blur && (
+            <div className="absolute inset-0 backdrop-blur-md bg-white/40 flex flex-col items-center justify-center rounded-lg transition-all">
+              <MdVisibility className="text-3xl text-sec mb-1" />
+              <span className="text-xs font-semibold text-sec bg-white px-3 py-1 rounded-full shadow-xs">
+                Click to Reveal QR
+              </span>
+            </div>
+          )}
         </div>
 
-        <p className="font-medium mb-4 cursor-pointer mt-2">
-          User Id: {blur ? "***************************" : profile._id}
+        <p className="font-mono text-xs mb-4 cursor-pointer mt-3 text-textPri/70">
+          User ID: {blur ? "••••••••••••••••••••••••" : profile._id}
         </p>
 
         <button
           disabled={!ref || blur}
           onClick={onClick}
-          className="button w-full py-2 bg-pri rounded-md flex justify-center items-center gap-3 font-medium"
+          className="button w-full py-2.5 bg-pri hover:bg-pri/80 disabled:opacity-50 disabled:cursor-not-allowed rounded-md flex justify-center items-center gap-2 font-medium text-sm transition"
         >
-          <MdOutlineFileDownload className="text-xl" /> Download QR Code
+          <MdOutlineFileDownload className="text-xl" />
+          <span>{blur ? "Reveal QR to Download" : "Download QR Code (PNG)"}</span>
         </button>
       </section>
     </main>

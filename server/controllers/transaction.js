@@ -81,14 +81,13 @@ export const getMyTransactions = async (req, res) => {
 export const getUserTransactions = async (req, res) => {
   try {
     const { client } = req.params;
-    const transactions = await Transaction.find({
-      client,
-      balance: { $lt: 0 },
-    });
+    const transactions = await Transaction.find({ client })
+      .select("-__v")
+      .sort({ createdAt: -1 });
 
-    res.status(201).json(transactions).select("-__v");
+    res.status(200).json(transactions);
   } catch (error) {
-    res.status(401).json(error);
+    res.status(500).json(error);
   }
 };
 

@@ -23,13 +23,13 @@ export const RedeemScanner = () => {
   const navigate = useNavigate();
   return (
     <StartScan
-      handler={(result: any) => {
+      handler={async (result: any) => {
         try {
-          createTransaction(result, -40);
-          toast.success("Ticket Redeemed Successfuly");
-          navigate("/worker")
+          await createTransaction(result, -40);
+          toast.success("Ticket Redeemed Successfully");
+          navigate("/worker");
         } catch (error) {
-          toast.error("Somthing Went Wrong");
+          toast.error("Something Went Wrong or Insufficient Balance");
         }
       }}
     />

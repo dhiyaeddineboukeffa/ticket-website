@@ -55,7 +55,7 @@ export const AddBalance = () => {
     <main className="grid md:grid-cols-[auto_1fr]  h-full gap-6 ">
       <article className="space-y-4 md:w-96 w-full  h-full grid  [&_h1]:text-xl [&_h1]:font-semibold   [&_h2]:text-black/50 [&_h3]:justify-self-end">
         <aside className=" card space-y-2 h-fit">
-          <h1 className="tracking-wide !mb-4">Client Informations</h1>
+          <h1 className="tracking-wide !mb-4">Client Information</h1>
           <div className="grid grid-cols-2 gap-y-3 [&_h3]:line-clamp-1">
             <h2>Client Id :</h2>
             <h3>{client._id}</h3>
@@ -75,7 +75,7 @@ export const AddBalance = () => {
           </div>
         </aside>
         <aside className=" card space-y-2 self-end">
-          <h1 className="tracking-wide !mb-4">Worker Informations</h1>
+          <h1 className="tracking-wide !mb-4">Worker Information</h1>
           <div className="grid grid-cols-2 gap-y-3 ">
             <h2>Full Name :</h2>
             <h3>{profile.fullName}</h3>
@@ -159,7 +159,7 @@ export const AddBalance = () => {
               {loading ? (
                 <div className="loader w-5 h-5 !border-2" />
               ) : (
-                "Yes' I'm sure"
+                "Yes, I'm sure"
               )}
             </button>
           </aside>
