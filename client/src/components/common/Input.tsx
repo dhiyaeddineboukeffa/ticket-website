@@ -9,7 +9,6 @@ function Input({
   name,
   set,
   onChange,
-
   icon,
   classIcon = "",
   placeholder = "",
@@ -19,47 +18,58 @@ function Input({
   title = "",
   classContainer = "",
   wait = false,
+  inputMode,
+  autoComplete,
 }: Input) {
   const input = useRef<HTMLInputElement>(null);
   const [hide, sethide] = useState<boolean>(false);
   const timeoutRef = useRef<any>(null);
 
   const handleChange = (e: any) => {
-    clearTimeout(timeoutRef.current); // Clear previous timeout
+    clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
-      // Perform server-side action here (e.g., API call)
-      console.log("Input value:", e.target.value);
       onChange
-        ? onChange
+        ? onChange(e)
         : set((state: any) => ({ ...state, [name]: e.target.value }));
-      // Clear the timeout ref after the action is completed
       timeoutRef.current = null;
-    }, 500); // Adjust the delay as needed (in milliseconds)
+    }, 500);
   };
+
+  const computedInputMode =
+    inputMode ||
+    (type === "number" || name === "phoneNumber"
+      ? "tel"
+      : name === "email"
+      ? "email"
+      : undefined);
 
   return (
     <article className={` ${classContainer}`}>
       {title && (
-        <h1 className="text-textPri  font-medium mb-2 ml-1">{title}</h1>
+        <label className="block text-textPri font-medium text-xs sm:text-sm mb-1.5 ml-1 select-none">
+          {title}
+        </label>
       )}
       <aside
         onClick={() => {
           input.current?.focus();
         }}
-        className={`text-sm font-semibold py-2.5 px-3 relative items-center flex gap-3 rounded-md bg-pri  duration-200   tracking-wide
-            ${err && "!border-red-600"}
-            ${disabled && "pointer-events-none opacity-70"}
+        className={`text-sm font-semibold py-2.5 px-3 min-h-[46px] relative items-center flex gap-3 rounded-md bg-pri duration-200 tracking-wide border border-transparent
+            ${err ? "!border-red-600" : "focus-within:border-sec/40"}
+            ${disabled ? "pointer-events-none opacity-70" : ""}
              ${className}`}
       >
         {icon &&
           React.cloneElement(icon, {
-            className: `${classIcon}`,
+            className: `${classIcon} text-gray-500 shrink-0`,
           } as React.HTMLAttributes<HTMLElement>)}
         <input
           ref={input}
           disabled={disabled}
-          type={type == "password" ? (hide ? "text" : "password") : type}
-          className={`outline-none placeholder:text-[#8e9db0] bg-transparent placeholder:text-sm w-full ${classInput}`}
+          type={type === "password" ? (hide ? "text" : "password") : type}
+          inputMode={computedInputMode}
+          autoComplete={autoComplete}
+          className={`outline-none placeholder:text-[#8e9db0] bg-transparent text-base sm:text-sm placeholder:text-sm w-full ${classInput}`}
           placeholder={placeholder}
           onChange={(e) => {
             wait
@@ -68,37 +78,36 @@ function Input({
               ? onChange(e)
               : set((state: any) => ({ ...state, [name]: e.target.value }));
           }}
-          value={value}
+          value={value ?? ""}
         />
-        {type === "password" && <div className="cursor-pointer"></div>}
 
-        {type === "password" ? (
-          !hide ? (
-            <MdRemoveRedEye
-              onClick={() => sethide(true)}
-              className="text-gray-600 mx-2 text-xl scale-125 cursor-pointer"
-            />
-          ) : (
-            <IoMdEyeOff
-              onClick={() => sethide(false)}
-              className="text-gray-600 mx-2 text-xl scale-125 cursor-pointer"
-            />
-          )
-        ) : (
-          <></>
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              sethide(!hide);
+            }}
+            aria-label={hide ? "Hide password" : "Show password"}
+            className="w-10 h-10 -mr-2 shrink-0 flex items-center justify-center text-gray-500 hover:text-gray-700 active:scale-95 transition"
+          >
+            {!hide ? (
+              <MdRemoveRedEye className="text-xl" />
+            ) : (
+              <IoMdEyeOff className="text-xl" />
+            )}
+          </button>
         )}
       </aside>
 
       <aside
-        className={`grid overflow-hidden transition-all duration-500 ${
-          err ? "grid-rows-[1fr] opacity-100 mb-2" : "grid-rows-[0fr] opacity-0"
+        className={`grid overflow-hidden transition-all duration-300 ${
+          err ? "grid-rows-[1fr] opacity-100 mt-1" : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <h1
-          className={`text-red-600 text-xs -bottom-5 left-0 mt-1 popFade ml-1.5 overflow-hidden`}
-        >
+        <p className="text-red-600 text-xs ml-1.5 overflow-hidden">
           • {err}
-        </h1>
+        </p>
       </aside>
     </article>
   );
@@ -123,6 +132,8 @@ type Input = {
   err?: string;
   title?: string;
   wait?: boolean;
+  inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search";
+  autoComplete?: string;
 };
 
 export default Input;

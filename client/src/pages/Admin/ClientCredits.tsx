@@ -132,49 +132,49 @@ function ClientCredits() {
       </header>
 
       {/* Stats Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-emerald-500/30">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-emerald-500/30">
           <div className="flex justify-between items-center text-emerald-400">
-            <span className="text-sm font-medium">Total Balance in System</span>
-            <MdAttachMoney className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Total Balance</span>
+            <MdAttachMoney className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-emerald-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 my-1 sm:my-2">
             {stats.totalBalance.toLocaleString()} DZD
           </div>
-          <p className="text-white/50 text-xs">Sum of all client account balances</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Sum of client balances</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-cyan-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-cyan-500/30">
           <div className="flex justify-between items-center text-cyan-400">
-            <span className="text-sm font-medium">Client Accounts</span>
-            <MdPeople className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Clients</span>
+            <MdPeople className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-cyan-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-cyan-400 my-1 sm:my-2">
             {stats.totalClients}
           </div>
-          <p className="text-white/50 text-xs">Active registered passenger wallets</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Active rider wallets</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-indigo-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-indigo-500/30">
           <div className="flex justify-between items-center text-indigo-400">
-            <span className="text-sm font-medium">Average Client Balance</span>
-            <MdTrendingUp className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Avg Balance</span>
+            <MdTrendingUp className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-indigo-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-indigo-400 my-1 sm:my-2">
             {stats.averageBalance.toLocaleString()} DZD
           </div>
-          <p className="text-white/50 text-xs">Mean credit balance per rider</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Mean balance per rider</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-purple-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-purple-500/30">
           <div className="flex justify-between items-center text-purple-400">
-            <span className="text-sm font-medium">Top Client Holder</span>
-            <MdCheckCircle className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Top Holder</span>
+            <MdCheckCircle className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-xl font-bold text-white mt-2 truncate">
+          <div className="text-lg sm:text-xl font-bold text-white mt-1 sm:mt-2 truncate">
             {stats.topClient ? stats.topClient.fullName : "None"}
           </div>
-          <p className="text-purple-300 font-mono text-xs mt-1">
+          <p className="text-purple-300 font-mono text-xs mt-0.5">
             {stats.topClient ? `${stats.topClient.balance.toLocaleString()} DZD` : "0 DZD"}
           </p>
         </article>
@@ -199,7 +199,7 @@ function ClientCredits() {
       </section>
 
       {/* Client Credits Table */}
-      <section className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10 overflow-x-auto">
+      <section className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10 touch-scroll overflow-x-auto">
         <table className="w-full text-left text-sm border-collapse min-w-[700px]">
           <thead>
             <tr className="border-b border-white/10 text-white/50 text-xs uppercase">

@@ -105,49 +105,49 @@ function AllTransactions() {
       </header>
 
       {/* Stats Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center text-white/70">
-            <span className="text-sm font-medium">Total Transactions</span>
-            <MdReceiptLong className="text-2xl text-cyan-400" />
+            <span className="text-xs sm:text-sm font-medium">Total Activity</span>
+            <MdReceiptLong className="text-xl sm:text-2xl text-cyan-400" />
           </div>
-          <div className="text-3xl font-extrabold text-white my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-white my-1 sm:my-2">
             {stats.totalTransactions}
           </div>
-          <p className="text-white/50 text-xs">Ledger events recorded</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Ledger events recorded</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-emerald-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-emerald-500/30">
           <div className="flex justify-between items-center text-emerald-400">
-            <span className="text-sm font-medium">Total Recharges Added</span>
-            <MdTrendingUp className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Recharges</span>
+            <MdTrendingUp className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-emerald-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 my-1 sm:my-2">
             +{stats.totalCreditAdded.toLocaleString()} DZD
           </div>
-          <p className="text-white/50 text-xs">Top-ups and credit purchases</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Credit purchases added</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-rose-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-rose-500/30">
           <div className="flex justify-between items-center text-rose-400">
-            <span className="text-sm font-medium">Total Ticket Rides Used</span>
-            <MdTrendingDown className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Ticket Rides</span>
+            <MdTrendingDown className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-rose-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-rose-400 my-1 sm:my-2">
             -{stats.totalTicketSpent.toLocaleString()} DZD
           </div>
-          <p className="text-white/50 text-xs">Fares redeemed for travel</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Fares redeemed for travel</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-indigo-500/30">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-indigo-500/30">
           <div className="flex justify-between items-center text-indigo-400">
-            <span className="text-sm font-medium">Net Credit in Wallets</span>
-            <MdAccountBalanceWallet className="text-2xl opacity-80" />
+            <span className="text-xs sm:text-sm font-medium">Net Credit</span>
+            <MdAccountBalanceWallet className="text-xl sm:text-2xl opacity-80" />
           </div>
-          <div className="text-3xl font-extrabold text-indigo-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-indigo-400 my-1 sm:my-2">
             {stats.netFlow.toLocaleString()} DZD
           </div>
-          <p className="text-white/50 text-xs">Recharges minus fares spent</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Recharges minus spent</p>
         </article>
       </section>
 
@@ -201,7 +201,7 @@ function AllTransactions() {
       </section>
 
       {/* Transactions Table */}
-      <section className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10 overflow-x-auto">
+      <section className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10 touch-scroll overflow-x-auto">
         <table className="w-full text-left text-sm border-collapse min-w-[750px]">
           <thead>
             <tr className="border-b border-white/10 text-white/50 text-xs uppercase">

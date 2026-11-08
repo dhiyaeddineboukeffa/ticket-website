@@ -168,49 +168,49 @@ function UserManagement() {
       </header>
 
       {/* Stats Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center text-white/70">
-            <span className="text-sm font-medium">Total Users</span>
-            <MdGroup className="text-2xl text-cyan-400" />
+            <span className="text-xs sm:text-sm font-medium">Total Users</span>
+            <MdGroup className="text-xl sm:text-2xl text-cyan-400" />
           </div>
-          <div className="text-3xl font-extrabold text-white my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-white my-1 sm:my-2">
             {stats.totalUsers}
           </div>
-          <p className="text-white/50 text-xs">Registered system accounts</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Registered system accounts</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center text-white/70">
-            <span className="text-sm font-medium">Clients / Passengers</span>
-            <MdPerson className="text-2xl text-emerald-400" />
+            <span className="text-xs sm:text-sm font-medium">Clients</span>
+            <MdPerson className="text-xl sm:text-2xl text-emerald-400" />
           </div>
-          <div className="text-3xl font-extrabold text-emerald-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 my-1 sm:my-2">
             {stats.clientCount}
           </div>
-          <p className="text-white/50 text-xs">Normal rider accounts</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Normal rider accounts</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center text-white/70">
-            <span className="text-sm font-medium">Station Workers</span>
-            <MdBadge className="text-2xl text-amber-400" />
+            <span className="text-xs sm:text-sm font-medium">Workers</span>
+            <MdBadge className="text-xl sm:text-2xl text-amber-400" />
           </div>
-          <div className="text-3xl font-extrabold text-amber-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-amber-400 my-1 sm:my-2">
             {stats.workerCount}
           </div>
-          <p className="text-white/50 text-xs">Ticket & scanner staff</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Ticket & scanner staff</p>
         </article>
 
-        <article className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10">
+        <article className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center text-white/70">
-            <span className="text-sm font-medium">Administrators</span>
-            <MdShield className="text-2xl text-purple-400" />
+            <span className="text-xs sm:text-sm font-medium">Admins</span>
+            <MdShield className="text-xl sm:text-2xl text-purple-400" />
           </div>
-          <div className="text-3xl font-extrabold text-purple-400 my-2">
+          <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 my-1 sm:my-2">
             {stats.adminCount}
           </div>
-          <p className="text-white/50 text-xs">Full system control</p>
+          <p className="text-white/50 text-[10px] sm:text-xs">Full system control</p>
         </article>
       </section>
 
@@ -243,7 +243,7 @@ function UserManagement() {
       </section>
 
       {/* Users Table */}
-      <section className="Border p-4 rounded-lg bg-white/[0.02] border border-white/10 overflow-x-auto">
+      <section className="Border p-3 sm:p-4 rounded-lg bg-white/[0.02] border border-white/10 touch-scroll overflow-x-auto">
         <table className="w-full text-left text-sm border-collapse min-w-[700px]">
           <thead>
             <tr className="border-b border-white/10 text-white/50 text-xs uppercase">

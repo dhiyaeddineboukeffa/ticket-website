@@ -44,9 +44,31 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .button {
-  @apply disabled:opacity-60 disabled:pointer-events-none active:translate-y-px duration-200;
+  @apply disabled:opacity-60 disabled:pointer-events-none active:scale-[0.98] duration-150 select-none;
+  touch-action: manipulation;
 }
 
 .card {
-  @apply border border-gray-300 bg-[#F7FBFD] shadow-xl rounded-lg p-6 py-5;
+  @apply border border-gray-300 bg-[#F7FBFD] shadow-xl rounded-lg p-4 sm:p-6;
+}
+
+/* Mobile Touch & Safe Area Optimizations */
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  touch-action: manipulation;
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }

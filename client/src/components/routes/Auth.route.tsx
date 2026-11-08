@@ -3,6 +3,7 @@ import { useGetProfile, useLogout } from "../../hooks/useSign";
 import { useEffect } from "react";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
+import BottomNav from "../layout/BottomNav";
 
 function AuthRoute() {
   const { logout } = useLogout();
@@ -14,10 +15,11 @@ function AuthRoute() {
 
   if (localStorage.getItem("auth"))
     return (
-      <main className="min-h-screen grid grid-rows-[auto_1fr_auto] text-textPri">
+      <main className="min-h-screen grid grid-rows-[auto_1fr_auto] text-textPri pb-16 md:pb-0">
         <Navbar />
         <Outlet />
         <Footer />
+        <BottomNav />
       </main>
     );
 }

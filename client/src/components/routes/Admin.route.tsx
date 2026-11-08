@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import AdminSidebar from "../layout/AdminSidebar";
 import AdminNavbar from "../layout/AdminNavbar";
@@ -10,6 +10,7 @@ function AdminRoutes() {
   const navigate = useNavigate();
   const { profile } = profileSlice();
   const { loading } = useGetProfile();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.backgroundColor = "#09090B";
@@ -72,20 +73,39 @@ function AdminRoutes() {
   }
 
   return (
-    <main className="grid min-h-screen grid-cols-[auto_1fr] text-white/90">
-      <AdminSidebar />
-      <section
-        className="grid grid-rows-[auto_1fr] 
-      [&_.Border]:border-2 [&_.Border]:border-white/10 [&_.Border]:rounded-md
-      [&_h3]:font-bold [&_h3]:text-[23px]
-      [&_h4]:text-white/60 [&_h4]:text-sm
-      "
-      >
-        <AdminNavbar />
-        <nav className="h-full w-full p-4">
+    <main className="min-h-screen bg-[#09090B] flex flex-col text-white/90">
+      <AdminNavbar onToggleMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
+
+      <div className="flex flex-1 relative w-full overflow-x-hidden">
+        {/* Desktop Sidebar (Permanent) */}
+        <aside className="hidden md:block w-56 shrink-0 bg-[#18181B] border-r border-white/10 min-h-[calc(100vh-64px)]">
+          <AdminSidebar />
+        </aside>
+
+        {/* Mobile Slide-Over Drawer with Backdrop */}
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 md:hidden bg-black/70 backdrop-blur-xs flex animate-in fade-in duration-200">
+            <div className="w-64 max-w-[80vw] bg-[#18181B] h-full shadow-2xl flex flex-col z-50 animate-in slide-in-from-left duration-250">
+              <AdminSidebar onClose={() => setMobileMenuOpen(false)} />
+            </div>
+            <div
+              className="flex-1 cursor-pointer"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            />
+          </div>
+        )}
+
+        {/* Content Viewport (Full width on mobile) */}
+        <section
+          className="flex-1 w-full min-w-0 p-3 sm:p-6 overflow-x-hidden 
+          [&_.Border]:border [&_.Border]:border-white/10 [&_.Border]:rounded-lg
+          [&_h3]:font-bold [&_h3]:text-xl sm:[&_h3]:text-2xl
+          [&_h4]:text-white/60 [&_h4]:text-xs sm:[&_h4]:text-sm"
+        >
           <Outlet />
-        </nav>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

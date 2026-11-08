@@ -109,12 +109,12 @@ export default function GradientAreaChart({
         </div>
 
         {/* View toggle filters */}
-        <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-lg border border-white/10 text-xs">
+        <div className="grid grid-cols-2 sm:flex sm:flex-nowrap items-center gap-1.5 bg-white/5 p-1 rounded-lg border border-white/10 text-xs w-full sm:w-auto">
           <button
             onClick={() => setMetricFilter("all")}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`min-h-[38px] px-2.5 py-1.5 rounded transition-all active:scale-95 text-center ${
               metricFilter === "all"
-                ? "bg-cyan-500/20 text-cyan-300 font-semibold"
+                ? "bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30"
                 : "text-white/60 hover:text-white"
             }`}
           >
@@ -122,9 +122,9 @@ export default function GradientAreaChart({
           </button>
           <button
             onClick={() => setMetricFilter("flow")}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`min-h-[38px] px-2.5 py-1.5 rounded transition-all active:scale-95 text-center ${
               metricFilter === "flow"
-                ? "bg-rose-500/20 text-rose-300 font-semibold"
+                ? "bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30"
                 : "text-white/60 hover:text-white"
             }`}
           >
@@ -132,9 +132,9 @@ export default function GradientAreaChart({
           </button>
           <button
             onClick={() => setMetricFilter("inFrame")}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`min-h-[38px] px-2.5 py-1.5 rounded transition-all active:scale-95 text-center ${
               metricFilter === "inFrame"
-                ? "bg-indigo-500/20 text-indigo-300 font-semibold"
+                ? "bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/30"
                 : "text-white/60 hover:text-white"
             }`}
           >
@@ -142,9 +142,9 @@ export default function GradientAreaChart({
           </button>
           <button
             onClick={() => setMetricFilter("net")}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`min-h-[38px] px-2.5 py-1.5 rounded transition-all active:scale-95 text-center ${
               metricFilter === "net"
-                ? "bg-emerald-500/20 text-emerald-300 font-semibold"
+                ? "bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30"
                 : "text-white/60 hover:text-white"
             }`}
           >

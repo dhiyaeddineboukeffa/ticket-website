@@ -26,7 +26,7 @@ function Transactions() {
             loading && "grid-rows-[auto_1fr]"
           }`}
         >
-          <aside className="border-b border-gray-300/80 pb-2.5 font-semibold text-xs uppercase tracking-wider text-textPri/60 grid grid-cols-[2fr_2fr_1fr]">
+          <aside className="hidden sm:grid border-b border-gray-300/80 pb-2.5 font-semibold text-xs uppercase tracking-wider text-textPri/60 grid-cols-[2fr_2fr_1fr]">
             <span className="pl-2">Date & Time</span>
             <span>Transaction Type</span>
             <span className="justify-self-end pr-2">Amount</span>
@@ -52,31 +52,34 @@ function Transactions() {
               return (
                 <aside
                   key={t._id || i}
-                  className={`py-3 gap-2 items-center grid grid-cols-[2fr_2fr_1fr] hover:bg-black/[0.02] transition-colors rounded ${
+                  className={`py-3 px-1 sm:px-0 flex flex-col sm:grid sm:grid-cols-[2fr_2fr_1fr] sm:items-center gap-1.5 sm:gap-2 hover:bg-black/[0.02] transition-colors rounded ${
                     i !== transactions.length - 1 ? "border-b border-gray-200/70" : ""
                   }`}
                 >
-                  <span className="pl-2 font-mono text-xs sm:text-sm text-textPri/80">
+                  <div className="flex sm:contents items-center justify-between w-full">
+                    <span className="flex items-center gap-1.5 text-xs sm:text-sm font-medium sm:order-2">
+                      {isCredit ? (
+                        <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-xs font-semibold">
+                          <MdArrowUpward className="text-sm" /> Balance Top-Up
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-rose-700 bg-rose-50 px-2 py-0.5 rounded text-xs font-semibold">
+                          <MdArrowDownward className="text-sm" /> Tram Ticket Ride
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      className={`font-bold font-mono text-sm sm:order-3 sm:justify-self-end sm:pr-2 ${
+                        isCredit ? "text-emerald-600" : "text-rose-600"
+                      }`}
+                    >
+                      {isCredit ? "+" : ""}
+                      {t.balance} <span className="text-[11px] font-normal">DZD</span>
+                    </span>
+                  </div>
+
+                  <span className="sm:pl-2 font-mono text-[11px] sm:text-sm text-textPri/60 sm:text-textPri/80 sm:order-1">
                     {dateStr}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-xs sm:text-sm font-medium">
-                    {isCredit ? (
-                      <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-xs">
-                        <MdArrowUpward className="text-sm" /> Balance Top-Up
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-rose-700 bg-rose-50 px-2 py-0.5 rounded text-xs">
-                        <MdArrowDownward className="text-sm" /> Tram Ticket Ride
-                      </span>
-                    )}
-                  </span>
-                  <span
-                    className={`justify-self-end pr-2 font-bold font-mono text-xs sm:text-sm ${
-                      isCredit ? "text-emerald-600" : "text-rose-600"
-                    }`}
-                  >
-                    {isCredit ? "+" : ""}
-                    {t.balance} <span className="text-[11px] font-normal">DZD</span>
                   </span>
                 </aside>
               );
