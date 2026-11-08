@@ -387,7 +387,7 @@ function ClientCredits() {
                   required
                   value={adjustAmount}
                   onChange={(e) => setAdjustAmount(Math.max(1, Number(e.target.value)))}
-                  className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 text-white font-mono text-sm focus:outline-none focus:border-emerald-400"
+                  className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 text-white font-mono text-sm focus:outline-none focus:border-emerald-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
                 />
               </div>
 

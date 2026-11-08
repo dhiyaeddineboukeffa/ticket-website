@@ -90,7 +90,7 @@ function Profile() {
           <Input
             name="phoneNumber"
             value={newProfile.phoneNumber}
-            type="number"
+            type="tel"
             set={setNewProfile}
             title="Phone Number"
             err={err.phoneNumber}

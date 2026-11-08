@@ -41,7 +41,7 @@ function SignUp() {
         <Input
           title="Phone Number"
           name="phoneNumber"
-          type="number"
+          type="tel"
           set={setSignupInfo}
           value={signupInfo.phoneNumber}
           placeholder="e.g. 05xxxxxxxx"

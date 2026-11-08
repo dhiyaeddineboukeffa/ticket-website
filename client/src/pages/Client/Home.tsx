@@ -29,7 +29,7 @@ function Home() {
         <aside className="flex gap-2 items-center opacity-80 text-xs sm:text-sm">
           <MdWifi className="text-green-600 text-base sm:text-lg" />
           <div className="w-px h-3.5 bg-textPri" />
-          <p className="line-clamp-1">Active Connection</p>
+          <p className="line-clamp-1">MongoDB Cloud: Synced</p>
         </aside>
       </header>
 

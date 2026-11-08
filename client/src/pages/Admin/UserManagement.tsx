@@ -445,7 +445,7 @@ function UserManagement() {
                     min="0"
                     value={newUser.balance}
                     onChange={(e) => setNewUser({ ...newUser, balance: Number(e.target.value) })}
-                    className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 text-white focus:outline-none focus:border-cyan-400"
+                    className="w-full bg-white/5 border border-white/15 rounded-md px-3 py-2 text-white focus:outline-none focus:border-cyan-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
                   />
                 </div>
               </div>

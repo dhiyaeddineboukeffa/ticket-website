@@ -35,10 +35,19 @@ function Input({
     }, 500);
   };
 
+  const isPhone = name === "phoneNumber" || name === "phone";
+  const effectiveType = isPhone && (type === "number" || type === "text")
+    ? "tel"
+    : type === "password"
+    ? (hide ? "text" : "password")
+    : type;
+
   const computedInputMode =
     inputMode ||
-    (type === "number" || name === "phoneNumber"
+    (isPhone
       ? "tel"
+      : type === "number"
+      ? "numeric"
       : name === "email"
       ? "email"
       : undefined);
@@ -66,10 +75,10 @@ function Input({
         <input
           ref={input}
           disabled={disabled}
-          type={type === "password" ? (hide ? "text" : "password") : type}
+          type={effectiveType}
           inputMode={computedInputMode}
           autoComplete={autoComplete}
-          className={`outline-none placeholder:text-[#8e9db0] bg-transparent text-base sm:text-sm placeholder:text-sm w-full ${classInput}`}
+          className={`outline-none placeholder:text-[#8e9db0] bg-transparent text-base sm:text-sm placeholder:text-sm w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:hidden [&::-webkit-inner-spin-button]:hidden ${classInput}`}
           placeholder={placeholder}
           onChange={(e) => {
             wait
